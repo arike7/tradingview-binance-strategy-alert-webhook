@@ -1,4 +1,4 @@
-WEBHOOK_PASSPHRASE = "yourpassphrase"
+WEBHOOK_PASSPHRASE = "araalmas"
 
-API_KEY = 'yourapikey'
-API_SECRET = 'yourapisecret'
+API_KEY = '4mhfwqzqJLDpXdbfYhcuSMB5IU2aGNS8I3DugeSqHCszPJnxVp7CVlWR2y25niIa'
+API_SECRET = '8xG3ZYXviIOQil6Txrvt4vBybqljtJ2e3nG3ZGCijF99vjAPBDMd300XlYsHIPqH'
