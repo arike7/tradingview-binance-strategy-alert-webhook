@@ -36,7 +36,7 @@ def webhook():
 
     side = data['strategy']['order_action'].upper()
     quantity = data['strategy']['order_contracts']
-    order_response = order(side, quantity, "ETHUSDT")
+    order_response = order(side, quantity, "ETHPERP")
     
     if order_response:
         return {
