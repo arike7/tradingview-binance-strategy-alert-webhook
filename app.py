@@ -1,11 +1,11 @@
 import json, config
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from binance.client import Client
 from binance.enums import *
 
 app = Flask(__name__)
 
-client = Client(config.API_KEY, config.API_SECRET, tld='us')
+client = Client(config.API_KEY, config.API_SECRET)
 
 def order(side, quantity, symbol, order_type=ORDER_TYPE_MARKET):
     try:
@@ -17,25 +17,27 @@ def order(side, quantity, symbol, order_type=ORDER_TYPE_MARKET):
 
     return order
 
-@app.route('/')
-def welcome():
-    return render_template('index.html')
+@app.route("/")
+def hello_world():
+    return "Hello, World!"
 
-@app.route('/webhook', methods=['POST'])
+@app.route("/webhook", methods=['POST'])
 def webhook():
     #print(request.data)
     data = json.loads(request.data)
-    
+
     if data['passphrase'] != config.WEBHOOK_PASSPHRASE:
         return {
             "code": "error",
             "message": "Nice try, invalid passphrase"
         }
+    print(data['ticker'])
+    print(data['bar'])
 
     side = data['strategy']['order_action'].upper()
     quantity = data['strategy']['order_contracts']
-    order_response = order(side, quantity, "ETHUSD")
-
+    order_response = order(side, quantity, "ETHPERP")
+    
     if order_response:
         return {
             "code": "success",
