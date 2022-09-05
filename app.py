@@ -6,11 +6,13 @@ from binance.enums import *
 app = Flask(__name__)
 
 client = Client(config.API_KEY, config.API_SECRET)
-
-def order(side, quantity, symbol, order_type=ORDER_TYPE_MARKET):
+#order_price
+def order(side, quantity, symbol, order_type=FUTURE_ORDER_TYPE_MARKET):
     try:
+        #{order_price}
         print(f"sending order {order_type} - {side} {quantity} {symbol}")
-        order = client.create_order(symbol=symbol, side=side, type=order_type, quantity=quantity)
+        #price=order_price, timeInForce='GTC'
+        order = client.futures_create_order(symbol=symbol, side=side, type=order_type, quantity=quantity)
     except Exception as e:
         print("an exception occured - {}".format(e))
         return False
@@ -36,7 +38,8 @@ def webhook():
 
     side = data['strategy']['order_action'].upper()
     quantity = data['strategy']['order_contracts']
-    order_response = order(side, quantity, "ETHUSDT")
+    #price = data['strategy']['order_price'] 
+    order_response = order(side, quantity, "ETHUSDT")#price,
     
     if order_response:
         return {
